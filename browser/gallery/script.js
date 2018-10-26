@@ -13,18 +13,15 @@ const picList = [
 let i = 0;
 currentPic.src = picList[i];
 
-function gallery () {
-  if (i === picList.length || i === -picList.length) {
-    i = 0;
-    currentPic.src = picList[i];
-    return;
-  }
-  if (this.id === "nextPhoto") {
-    currentPic.src = picList[++i];
-  } else if (this.id === "prevPhoto") {
-    currentPic.src = picList[--i];
-  }
+function galleryNext () {
+  (i === picList.length - 1 ? i = 0 : i++);
+  currentPic.src = picList[i];
 }
 
-nextBut.onclick = gallery;
-prevBut.onclick = gallery;
+function galleryPrev () {
+  (i === 0 ? i = picList.length - 1: i--);
+  currentPic.src = picList[i];
+}
+
+nextBut.onclick = galleryNext;
+prevBut.onclick = galleryPrev;
