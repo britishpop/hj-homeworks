@@ -1,5 +1,3 @@
-const slider = document.getElementById("slider");
-
 const pics = [
   "i/airmax-jump.png",
   "i/airmax-on-foot.png",
@@ -7,6 +5,8 @@ const pics = [
   "i/airmax-top-view.png",
   "i/airmax.png"
 ];
+const slider = document.getElementById("slider");
+slider.src = pics[0];
 
 const spin = function (arr) {
   let i = 0;
