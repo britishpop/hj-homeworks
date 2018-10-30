@@ -32,6 +32,8 @@ function textInput (event) {
     case "KeyZ":
       codeInput = codeInput.concat("я");
       break;
+    default:
+      codeInput = codeInput.concat("!");
   }
   if (codeInput.lastIndexOf("нетология") !== -1) {
     showEasterEgg();
