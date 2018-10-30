@@ -33,7 +33,6 @@ for (let i = 0; i < audio.length; i++) {
 }
 
 function changeSet (newSet) {
-  debugger;
   piano.classList.add(newSet);
   switch (newSet) {
     case "lower":
