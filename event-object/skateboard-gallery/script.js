@@ -5,8 +5,14 @@
 
   const makeMain = function (event) {
     event.preventDefault();
-    console.log(event.target.parentNode);
-    const currentTarget = event.target.parentNode;
+
+    let currentTarget;
+    if (event.target.tagName === "IMG") {
+      currentTarget = event.target.parentNode;
+    } else if (event.target.tagName === "A") {
+      currentTarget = event.target;
+    }
+
     mainSkate.classList.remove("gallery-current");
     currentTarget.classList.add("gallery-current");
     mainPic.src = currentTarget.href;
