@@ -10,6 +10,6 @@ function addToCart(event) {
   cartPrice.innerHTML = getPriceFormatted(newTotal);
 }
 
-for (button of buttons) {
+for (let button of buttons) {
   button.addEventListener("click", addToCart);
 }
