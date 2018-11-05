@@ -2,23 +2,31 @@ const content = document.getElementById("content");
 const preloader = document.getElementById("preloader");
 const tabs = document.querySelectorAll("nav a");
 
-function parseData (data) {
-  console.log(data);
+function onTabClick (event) {
+	event.preventDefault();
+	const clickedTab = event.currentTarget;
+	const activeTab = document.querySelector("nav a.active");
+	if (clickedTab !== activeTab) {
+		activeTab.classList.remove("active");
+		clickedTab.classList.add("active");
+	}
+	showContent(clickedTab);
 }
 
-function showContent (event) {
-  event.preventDefault();
-  const destination = event.currentTarget.getAttribute("href");
-
+function showContent (tab) {
+  const destination = tab.getAttribute("href");
   const request = new XMLHttpRequest();
+
   request.addEventListener("loadstart", () => preloader.classList.remove("hidden"));
   request.addEventListener("loadend", () => preloader.classList.add("hidden"));
-  request.addEventListener("load", parseData(request.responseText));
+  request.addEventListener("load", () => content.innerHTML = request.response);
 
-  request.open("GET", destination, true);
+  request.open("GET", destination);
   request.send();
 }
 
 for (let tab of tabs) {
-  tab.addEventListener("click", showContent);
+  tab.addEventListener("click", onTabClick);
 }
+
+showContent(document.querySelector("nav .active"));
