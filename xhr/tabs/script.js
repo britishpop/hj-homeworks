@@ -15,7 +15,7 @@ function showContent (event) {
   request.addEventListener("loadend", () => preloader.classList.add("hidden"));
   request.addEventListener("load", parseData(request.responseText));
 
-  request.open("GET", "file:///Users/britishpop/Documents/git/web_js/xhr/tabs/components/sms-tab.html", true);
+  request.open("GET", destination, true);
   request.send();
 }
 
