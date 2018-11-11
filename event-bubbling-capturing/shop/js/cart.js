@@ -23,4 +23,4 @@ function middleman (event) {
   addToCart(item);
 }
 
-reloadListeners()
+reloadListeners();
