@@ -8,31 +8,39 @@ const audio = document
               .getElementsByTagName("audio")[0];
 const songInfo = mediaplayer.querySelector("span.title");
 
-
-const songs = {
-  "LA Chill Tour": "https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Chill Tour.mp3",
-  "This is it band": "https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/This is it band.mp3",
-  "LA Fusion Jam":"https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Fusion Jam.mp3"
-}
-
-const playlist = ["LA Chill Tour", "This is it band", "LA Fusion Jam"]
+const playlist = [
+  {
+    title: "LA Chill Tour",
+    src: "mp3/LA Chill Tour.mp3"
+  },
+  {
+    title: "This is it band",
+    src: "mp3/This is it band.mp3",
+  },
+  {
+    title: "LA Fusion Jam",
+    src: "mp3/LA Fusion Jam.mp3"
+  }
+]
 
 let songIndex = 0;
 
 function backward () {
-  playback();
-  (songIndex === 0 ? songIndex = playlist.length - 1: songIndex--);
-  audio.src = songs[playlist[songIndex]];
-  songInfo.title = playlist[songIndex];
-  playback();
+  songIndex === 0 ? songIndex = playlist.length - 1: songIndex--;
+  audio.src = playlist[songIndex].src;
+  songInfo.title = playlist[songIndex].title;
+  if (mediaplayer.classList.contains("play")) {
+    play();
+  }
 }
 
 function forward () {
-  playback();
-  (songIndex === playlist.length - 1 ? songIndex = 0 : songIndex++);
-  audio.src = songs[playlist[songIndex]];
-  songInfo.title = playlist[songIndex];
-  playback();
+  songIndex === playlist.length - 1 ? songIndex = 0 : songIndex++;
+  audio.src = playlist[songIndex].src;
+  songInfo.title = playlist[songIndex].title;
+  if (mediaplayer.classList.contains("play")) {
+    play();
+  }
 }
 
 function playback () {
@@ -41,17 +49,16 @@ function playback () {
 
 function play () {
   audio.play();
-  mediaplayer.classList.toggle("play");
+  mediaplayer.classList.add("play");
 }
 
 function pause () {
   audio.pause();
-  mediaplayer.classList.toggle("play");
+  mediaplayer.classList.remove("play");
 }
 
 function stop () {
-  audio.pause();
-  mediaplayer.classList.remove("play");
+  pause();
   audio.currentTime = 0;
 }
 
