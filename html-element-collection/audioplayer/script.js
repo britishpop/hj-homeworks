@@ -6,13 +6,33 @@ const stopButton = document.getElementsByClassName("stop")[0];
 const audio = document
               .getElementsByClassName("mediaplayer")[0]
               .getElementsByTagName("audio")[0];
+const songInfo = mediaplayer.querySelector("span.title");
+
+
+const songs = {
+  "LA Chill Tour": "https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Chill Tour.mp3",
+  "This is it band": "https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/This is it band.mp3",
+  "LA Fusion Jam":"https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Fusion Jam.mp3"
+}
+
+const playlist = ["LA Chill Tour", "This is it band", "LA Fusion Jam"]
+
+let songIndex = 0;
 
 function backward () {
-  audio.currentTime -= 10;
+  playback();
+  (songIndex === 0 ? songIndex = playlist.length - 1: songIndex--);
+  audio.src = songs[playlist[songIndex]];
+  songInfo.title = playlist[songIndex];
+  playback();
 }
 
 function forward () {
-  audio.currentTime += 10;
+  playback();
+  (songIndex === playlist.length - 1 ? songIndex = 0 : songIndex++);
+  audio.src = songs[playlist[songIndex]];
+  songInfo.title = playlist[songIndex];
+  playback();
 }
 
 function playback () {
@@ -35,7 +55,7 @@ function stop () {
   audio.currentTime = 0;
 }
 
-backwardButton.onclick = backward;
-forwardButton.onclick = forward;
-playStateButton.onclick = playback;
-stopButton.onclick = stop;
+backwardButton.addEventListener("click", backward);
+forwardButton.addEventListener("click", forward);
+playStateButton.addEventListener("click", playback);
+stopButton.addEventListener("click", stop);
