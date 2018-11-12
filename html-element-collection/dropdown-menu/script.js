@@ -1,9 +1,7 @@
-const wrapperDropdown = document.getElementsByClassName("wrapper-dropdown");
-const dropdownList = document.getElementsByClassName("wrapper");
+const wrapperDropdown = document.getElementsByClassName("wrapper-dropdown")[0];
 
 function toggleActive () {
-  wrapperDropdown[0].classList.toggle("active");
+  wrapperDropdown.classList.toggle("active");
 }
 
-wrapperDropdown[0].onclick = toggleActive;
-dropdownList[0].onclick = toggleActive;
+wrapperDropdown.addEventListener("click", toggleActive);
