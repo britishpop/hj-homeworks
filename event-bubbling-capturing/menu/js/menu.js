@@ -1,13 +1,13 @@
 'use strict';
 
-function toggleMenu(event) {;
-  if (event.target.dataset.toggle === "dropdown") {
-    if (this.classList.contains('show')) {
-      this.classList.remove('show');
-      this.classList.add('hide');
+function toggleMenu(event) {
+  if (event.target.tagName === "I") {
+    if (event.currentTarget.classList.contains('show')) {
+      event.currentTarget.classList.remove('show');
+      event.currentTarget.classList.add('hide');
     } else {
-      this.classList.add('show');
-      this.classList.remove('hide');
+      event.currentTarget.classList.add('show');
+      event.currentTarget.classList.remove('hide');
     }
   }
 }
