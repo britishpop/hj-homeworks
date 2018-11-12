@@ -4,23 +4,20 @@ showMore.addEventListener('click', reloadListeners);
 
 function reloadListeners () {
   const addToCartButtons = document.getElementsByClassName("add-to-cart");
-  for (let button of addToCartButtons) {
-    button.addEventListener("click", middleman);
-  }
+  list.addEventListener("click", middleman);
 }
 
 function middleman (event) {
-  event.preventDefault();
   const currentItem = event.target;
-
-  if (currentItem.tagName !== "A") {
-    return;
+  if (currentItem.tagName === "A" &&
+      currentItem.classList.contains("add-to-cart")) {
+    event.preventDefault();
+    const item = {
+      "title": currentItem.dataset.title,
+      "price": currentItem.dataset.price
+    };
+    addToCart(item);
   }
-  const item = {
-    "title": currentItem.dataset.title,
-    "price": currentItem.dataset.price
-  };
-  addToCart(item);
 }
 
 reloadListeners();
