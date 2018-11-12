@@ -1,42 +1,17 @@
-let codeInput = "";
 const navBar = document.querySelector("nav");
-const easterEgg = document.querySelector(".secret")
+const easterEgg = document.querySelector(".secret");
+const secretWord = "KeyYKeyTKeyNKeyJKeyKKeyJKeyUKeyBKeyZ";
+let codeInput = "";
 
 function showEasterEgg () {
   easterEgg.classList.toggle("visible");
 }
 
 function textInput (event) {
-  switch (event.code) {
-    case "KeyY":
-      codeInput = codeInput.concat("н");
-      break;
-    case "KeyT":
-      codeInput = codeInput.concat("е");
-      break;
-    case "KeyN":
-      codeInput = codeInput.concat("т");
-      break;
-    case "KeyJ":
-      codeInput = codeInput.concat("о");
-      break;
-    case "KeyK":
-      codeInput = codeInput.concat("л");
-      break;
-    case "KeyU":
-      codeInput = codeInput.concat("г");
-      break;
-    case "KeyB":
-      codeInput = codeInput.concat("и");
-      break;
-    case "KeyZ":
-      codeInput = codeInput.concat("я");
-      break;
-    default:
-      codeInput = codeInput.concat("!");
-  }
-  if (codeInput.lastIndexOf("нетология") !== -1) {
+  codeInput += event.code;
+  if (codeInput.lastIndexOf(secretWord) !== -1) {
     showEasterEgg();
+    codeInput = "";
   }
 }
 
