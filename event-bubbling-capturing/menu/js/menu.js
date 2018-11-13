@@ -1,7 +1,9 @@
 'use strict';
 
 function toggleMenu(event) {
-  if (event.target.tagName === "I") {
+  // debugger;
+  if (event.target.parentNode.classList.contains("dropdown") ||
+      event.target.parentNode.dataset.toggle === "dropdown") {
     if (event.currentTarget.classList.contains('show')) {
       event.currentTarget.classList.remove('show');
       event.currentTarget.classList.add('hide');
