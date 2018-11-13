@@ -1,13 +1,13 @@
 'use strict';
 
-showMore.addEventListener('click', reloadListeners);
+document.addEventListener('DOMContentLoaded', addHandlers);
 
-function reloadListeners () {
+function addHandlers () {
   const addToCartButtons = document.getElementsByClassName("add-to-cart");
-  list.addEventListener("click", middleman);
+  list.addEventListener("click", handleListClick);
 }
 
-function middleman (event) {
+function handleListClick (event) {
   const currentItem = event.target;
   if (currentItem.tagName === "A" &&
       currentItem.classList.contains("add-to-cart")) {
@@ -19,5 +19,3 @@ function middleman (event) {
     addToCart(item);
   }
 }
-
-reloadListeners();
