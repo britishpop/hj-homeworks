@@ -31,41 +31,39 @@ function sendForm(form) {
   // ------ xhr version ------
   const xhr = new XMLHttpRequest;
   xhr.open('POST', destination);
-  xhr.addEventListener('load', () => responseHandler(xhr.response));
+  xhr.addEventListener('load', () => responseHandler(JSON.parse(xhr.response)));
   xhr.addEventListener('error', () => console.log(xhr.error));
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(requestData);
 
 
   // ------ fetch version ------
-  // const request = fetch(destination, {
-  //                   body: requestData,
-  //                   credentials : 'same-origin',
-  //                   method: 'POST',
-  //                   headers: {
-  //                     'Content-Type': 'application/json'
-  //                   },
-  //                 })
-  //                 .then(response => responseHandler(response))
-  //                 .catch((err) => {
-  //                   console.log(err)
-  //                 })
+  const request = fetch(destination, {
+                    body: requestData,
+                    credentials : 'same-origin',
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                  })
+                  .then(res => res.json())
+                  .then(response => responseHandler(response))
+                  .catch((err) => {
+                    console.log(err)
+                  })
 }
 
 function responseHandler(response) {
-  debugger;
-  const parsedResponse = JSON.parse(response);
-  debugger;
-  if (parsedResponse.error) {
-    outputMessage.innerText = parsedResponse.message;
+  if (response.error) {
+    outputMessage.innerText = response.message;
   } else {
-    outputMessage.innerText = `Пользователь ${parsedResponse.name} успешно ${outputMessageVariable}`;
+    outputMessage.innerText = `Пользователь ${response.name} успешно ${outputMessageVariable}`;
   }
 }
 
 function getDestination(form) {
   if (form.classList.contains('sign-in-htm')) {
-    outputMessageVariable = "авторизован";
+    outputMessageVariable = 'авторизован';
     return "https://neto-api.herokuapp.com/signin";
   } else if (form.classList.contains('sign-up-htm')) {
     outputMessageVariable = 'зарегистрирован';
