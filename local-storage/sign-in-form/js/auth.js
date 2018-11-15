@@ -29,12 +29,12 @@ function sendForm(form) {
   const requestData = gatherData(form);
 
   // ------ xhr version ------
-  const xhr = new XMLHttpRequest;
-  xhr.open('POST', destination);
-  xhr.addEventListener('load', () => responseHandler(JSON.parse(xhr.response)));
-  xhr.addEventListener('error', () => console.log(xhr.error));
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(requestData);
+  // const xhr = new XMLHttpRequest;
+  // xhr.open('POST', destination);
+  // xhr.addEventListener('load', () => responseHandler(JSON.parse(xhr.response)));
+  // xhr.addEventListener('error', () => console.log(xhr.error));
+  // xhr.setRequestHeader('Content-Type', 'application/json');
+  // xhr.send(requestData);
 
 
   // ------ fetch version ------
