@@ -40,12 +40,12 @@ function visible() {
 
 function link(url) {
   return url.replace(/44133/,'');
-};
+}
 
 
 function randomName() {
   return 'callback' + Math.round(10000 * Math.random());
-};
+}
 
 
 loadData('https://neto-api.herokuapp.com/profile/me')
