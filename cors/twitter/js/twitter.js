@@ -18,6 +18,6 @@ function callback(data) {
   document.querySelector('[data-following]').innerText =  data.following;
 }
 
-function link(link) {
-  return link.replace(/44889/,'');
+function link(url) {
+  return url.replace(/44889/,'');
 }
