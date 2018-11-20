@@ -4,7 +4,7 @@ const script = document.createElement('script');
 script.src = 'https://neto-api.herokuapp.com/twitter/jsonp';
 document.body.appendChild(script);
 
-const callback = function(data) {
+function callback(data) {
   const userpic = link(data.pic);
   const wallpaper = link(data.wallpaper);
 
