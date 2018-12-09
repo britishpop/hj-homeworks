@@ -37,37 +37,47 @@ function createThumbnail(video) {
 }
 
 function record(app) {
+  app.mode = 'preparing';
+
   return new Promise((done, fail) => {
-    app.mode = 'preparing';
-    navigator.mediaDevices.getUserMedia(app.config)
-    .then(stream => {
-      app.preview.srcObject = stream;
-      app.preview.addEventListener('canplay', () => {
+
+    navigator.mediaDevices
+      .getUserMedia(app.config)
+      .then((stream) => {
+        app.preview.src = URL.createObjectURL(stream);
         app.mode = 'recording';
-        const recorder = new MediaRecorder(stream);
+
+        let recorder = new MediaRecorder(stream);
         let chunks = [];
+
         recorder.addEventListener('dataavailable', (e) => chunks.push(e.data));
-        recorder.addEventListener('stop', () => {
-          const recorded = new Blob(chunks, { 'type' : recorder.mimeType });
+        recorder.addEventListener('stop', (e) => {
+          const recorded = new Blob(chunks, {'type': recorder.mimeType});
           chunks = null;
+
+
+          app.preview.srcObject = null;
+          stream.getTracks().forEach(track => track.stop());
+          recorder = stream = null;
+
           createThumbnail(recorded)
-            .then(frameBlob => {
-              return { 'video' : recorded, 'frame' : frameBlob };
-            })
-            .then(done);
+            .then(frame => {
+              app.mode = 'sending';
+              done({video: recorded, frame: frame});
+            });
         });
-        setTimeout(( () => {
-          recorder.start();
-          setTimeout(() => {
-            recorder.stop();
-            app.preview.srcObject = null;
-            stream.getTracks().forEach(track => track.stop());
-          }, app.limit);
-        }), 1000);
+
+        recorder.start(1000);
+
+        setTimeout(() => {
+          recorder.stop();
+        }, app.limit);
+
+      })
+
+      .catch((err) => {
+        fail(`Не удалось записать видео, ошибка: ${err.name}: ${err.message} \n ${err.stack}`);
       });
-    });
-    setTimeout(() => {
-      fail('Не удалось записать видео');
-    }, app.limit + 3000);
+
   });
 }
