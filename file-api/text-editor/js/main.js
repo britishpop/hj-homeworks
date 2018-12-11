@@ -18,8 +18,8 @@ class TextEditor {
   registerEvents() {
     const save = throttle( this.save.bind( this ), 1000 );
     this.contentContainer.addEventListener( 'input', save );
-    this.contentContainer.addEventListener( 'dragover', this.showHint.bind(this) );
-    this.contentContainer.addEventListener( 'drop', this.loadFile.bind(this) );
+    this.container.addEventListener('dragover', this.showHint.bind(this));
+    this.container.addEventListener('drop', this.loadFile.bind(this));
   }
   loadFile(e) {
     e.preventDefault();
@@ -40,7 +40,7 @@ class TextEditor {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
 
-      reader.addEventListener('load', res);
+      reader.addEventListener('load', resolve);
       reader.readAsText( file );
     })
   }
