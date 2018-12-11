@@ -2,31 +2,36 @@
 
 const eyeL = document.querySelector('.cat_position_for_left_eye');
 const eyeR = document.querySelector('.cat_position_for_right_eye');
-const bounds = eyeL.getBoundingClientRect();
+const boundLeft = eyeL.getBoundingClientRect();
+const boundRight = eyeR.getBoundingClientRect();
 
-document.addEventListener('mousemove', eyeTracker);
-
-
-function eyeTracker(event) {
-    if (event.pageX > bounds.right) {
-        eyeL.firstElementChild.style.left = 50 + '%';
-        eyeR.firstElementChild.style.left = 50 + '%';
-    } else if (event.pageX < bounds.left) {
-        eyeL.firstElementChild.style.left = 0 + 'px';
-        eyeR.firstElementChild.style.left = 0 + 'px';
-    } else {
-        eyeL.firstElementChild.style.left = 25 + '%';
-        eyeR.firstElementChild.style.left =25 + '%';
-    }
-
-    if (event.pageY < bounds.top) {
-        eyeL.firstElementChild.style.top = 0 + 'px';
-        eyeR.firstElementChild.style.top = 0 + 'px';
-    } else if (event.pageY > bounds.bottom) {
-        eyeL.firstElementChild.style.top = 50 + '%';
-        eyeR.firstElementChild.style.top = 50 + '%';
-    } else {
-        eyeL.firstElementChild.style.top = 25 + '%';
-        eyeR.firstElementChild.style.top = 25 + '%';
-    }
+function moveEye(eye, value, position){
+  if (position === 'left') {
+    eye.firstElementChild.style.left = `${value}%`;
+  } else if (position === 'top'){
+    eye.firstElementChild.style.top = `${value}%`;
+  }
 }
+
+function init(e, bound, eye) {
+  if (e.pageX > bound.right) {
+    moveEye(eye, 50, 'left');
+  } else if (e.pageX < bound.left) {
+    moveEye(eye, 0, 'left');
+  } else {
+    moveEye(eye, 25, 'left');
+  }
+
+  if (e.pageY < bound.top) {
+    moveEye(eye, 0, 'top');
+  } else if (e.pageY > bound.bottom) {
+    moveEye(eye, 50, 'top');
+  } else {
+    moveEye(eye, 25, 'top');
+  }
+}
+
+document.addEventListener('mousemove', (e) => {
+  init(e, boundLeft, eyeL);
+  init(e, boundRight, eyeR);
+});
